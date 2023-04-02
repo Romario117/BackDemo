@@ -2,12 +2,13 @@ package com.romario.demo.repository;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
+import java.io.IOException; 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
@@ -50,5 +51,27 @@ public class UsuarioRepo {
         }
         return usu;
     }
+
+	public UsuarioEntity findByUsername(String username) {
+		List<UsuarioEntity> usuarios = getDataJson();
+		UsuarioEntity entity = new UsuarioEntity();
+		Optional<UsuarioEntity> op = usuarios.stream().filter(u -> u.getUsername().equals(username)).findFirst();
+		if(op.isPresent())
+			entity = op.get();
+		return entity;
+	}
+
+	public Optional<UsuarioEntity> findByUsernameAndPassword(String username, String pass) {
+		List<UsuarioEntity> usuarios = getDataJson();
+		Optional<UsuarioEntity> usuario = usuarios.stream().filter(u -> u.getUsername().equals(username)).findFirst();
+		String user = usuario.get().getUsername();
+		String password = usuario.get().getPassword();
+		if(user.equals(username) && password.equals(pass)) {
+			return usuario;
+		}else {
+			return Optional.empty();
+		}
+		
+	}
     
 }

@@ -2,8 +2,10 @@ package com.romario.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-@SpringBootApplication
+
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class DemoApp1Application {
 
 	public static void main(String[] args) {
