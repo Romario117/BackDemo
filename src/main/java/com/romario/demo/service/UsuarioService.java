@@ -29,7 +29,7 @@ public class UsuarioService {
 	    	if (entity != null) {
 				Optional<UsuarioEntity> usuario = usuarioRepo.findByUsernameAndPassword(dto.getUsername(),dto.getPassword());
 				if (usuario.isPresent()) {
-					return new LoginMessage("inicio de Sesion exitoso", true);
+					return new LoginMessage("Exitoso", true);
 				}else {
 					return new LoginMessage("Inicio de sesion fallido", false);
 				}
