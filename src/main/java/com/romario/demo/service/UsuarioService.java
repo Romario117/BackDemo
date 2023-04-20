@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.romario.demo.dto.LoginDTO;
@@ -18,6 +19,7 @@ public class UsuarioService {
 	 @Autowired
 	    private UsuarioRepo usuarioRepo;
 	 
+	 	@Cacheable("usuarios")
 	    public List<UsuarioEntity> getUsuariosList() throws ParseException {
 	        List<UsuarioEntity> usuariosList;
 	       usuariosList   = usuarioRepo.getDataJson();
@@ -37,4 +39,10 @@ public class UsuarioService {
 	    		return new LoginMessage("Usuario no encontrado", false);
 	    	}
 	    }
+	    
+	    /**
+	     * 	@Caching(evict = {
+			@CacheEvict(value = "usuarios", allEntries = true)			
+	})
+	     */
 }
